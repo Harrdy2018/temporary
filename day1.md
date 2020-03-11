@@ -136,3 +136,37 @@ parent display:flex;
        justify-content: center;
        align-items: center;
 ```
+### CSS选择器
+* 内联>ID>class>元素/标签选择器
+```
+* ID选择器(ID selector,IS) #
+* 类选择器(class selector,CS) .
+* 元素(标签)选择器(element selector,ES) 标签名
+* 包含选择器(package selector,PS) 容许多层嵌套
+            A B{...} A里面的B标签
+            .A B{...} class名为A的标签里面的B标签
+* 子选择器(sub-selector,SS) 只对直接子代有用
+            A>B{...} A里面的直接子代B标签
+            .A>B{...} class名为A的标签里面的直接子代B标签
+* 兄弟选择器(brother selector,BS)
+            BS是CSS3.0新增的一个选择器,A~B{...}
+            每个A标签紧邻后的所有兄弟即B标签
+* 相邻选择器，语法格式：A+B
+            每个A标签紧邻后的第一个元素B 因为是相邻的，所以只选择一个B
+* 通用选择器 * 它的作用是匹配 html 中的所有元素标签
+```
+### 伪类和伪元素  给选择器添加不同的效果
+```
+伪类
+a:hover {...} 鼠标划过链接
+a:active {...} 鼠标点击一瞬间激活链接的时候变化
+p:first-child 匹配第一个p元素(不是子代)
+p>i:first-child 匹配为p的直接子代i,并且是第一个i
+p:first-child i 匹配p标签中的第一个p标签下面的直接子代或者间接子代i
+伪元素
+p::first-line{color: red} 对 p 元素的第一行文本进行格式化
+p::first-letter{color: red} 向文本的首字母设置特殊样式
+.dd::first-letter {color:#ff0000;}
+p::before{content: "you are a girl"} 在元素的内容前面插入新内容
+p::after{content: "you are a girl"} 伪元素可以在元素的内容之后插入新内容
+```
