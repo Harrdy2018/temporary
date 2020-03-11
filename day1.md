@@ -170,3 +170,53 @@ p::first-letter{color: red} 向文本的首字母设置特殊样式
 p::before{content: "you are a girl"} 在元素的内容前面插入新内容
 p::after{content: "you are a girl"} 伪元素可以在元素的内容之后插入新内容
 ```
+### Object.creat(obj) es6创建对象的另外一种方式
+* B=Object.creat(A) B.__proto===A
+* 实现类式继承
+```js
+function Shape(){
+  this.x=0;
+  this.y=0;
+}
+Shape.prototype.move=function(x,y){
+  this.x+=x;
+  this.y+=y;
+  console.log("Shape moved");
+}
+function Rectangle(){
+  Shape.call(this);
+}
+Rectangle.prototype=Object.create(Shape.prototype);
+Rectangle.prototype.constructor=Rectangle;
+var rect=new Rectangle();
+console.log(rect instanceof Rectangle);
+console.log(rect instanceof Shape);
+rect.move(1,1);
+```
+### new()
+```js
+function Person(name,age){
+  this.name=name;
+  this.age=age;
+}
+Person.prototype.sayName=function(){
+  console.log(this.name);
+}
+function my_new(Fun,...rest){
+  // 1.以构造器的prototype属性为原型，创建新对象
+  var that=Object.create(Fun.prototype);
+  // 2.将this和调用参数传给构造器执行
+  Person.apply(that,rest);
+  // 3.返回第一步的对象
+  return that;
+}
+var pp=my_new(Person,"lukang",18);
+console.log(pp);
+pp.sayName();
+//check
+console.log(pp instanceof Person);//true
+console.log(pp.constructor===Person);//true
+console.log(pp.hasOwnProperty("name"));//true
+console.log(pp.hasOwnProperty("name"));//true
+console.log(pp.hasOwnProperty("sayName"));//false
+```
