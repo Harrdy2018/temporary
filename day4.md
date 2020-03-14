@@ -65,3 +65,31 @@ Accept-Encoding 代表数据以什么编码的方式来实现传输 Content-Enco
 Accept-Language 希望获得的语言，用什么语言来展示 Content-Language 选择你喜欢的语言
 User-Agent 客户端
 ```
+### leetcode20-有效的括号
+```js
+var rev=function(pa){
+    if(pa===")") return "(";
+    if(pa==="]") return "[";
+    if(pa==="}") return "{";
+}
+var isValid = function(s) {
+    var str=[];
+    if(s.length===0){
+        return true;
+    }
+    for(var i=0;i<s.length;i++){
+        var item=s[i];
+        if(item ==="(" || item==="[" || item==="{"){
+            str.push(item);
+        }else{
+            if(str.length===0) return false;
+            if(rev(item) !== str.pop()) return false;
+        }
+    }
+    if(str.length===0){
+        return true;
+    }else{
+        return false;
+    }
+};
+```
