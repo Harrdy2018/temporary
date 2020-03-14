@@ -48,3 +48,43 @@
   },false);
 </script>
 ```
+### 计算两个div之间的距离
+* getBoundingClientRect() 获取元素左上角到窗口的垂直距离
+```
+两者相减:
+document.querySelector(".top").getBoundingClientRect();
+document.querySelector(".bottom").getBoundingClientRect();
+```
+### 外边距折叠
+* 浮动和绝对定位的元素不会出现！
+* 发生条件：渲染之后的元素位置相邻，而不是dom结构上的相邻
+* 情形一：垂直方向上外相邻的两个元素
+```
+BFC解决外边距折叠：
+对两个中的任意元素触发BFC：display: inline-block;
+存在多余距离的后遗症，对它们的container：font-size: 0px;
+```
+* 情形二：父元素和第一个或者最后一个子元素之间相邻
+```
+BFC解决外边距折叠，貌似没有后遗症：
+对两个中的任意元素触发BFC：display: inline-block;
+```
+* 如何计算外边距折叠之后的大小？ 异号相加；同号取绝对值最大值；
+### 如何去除inline-block(inline)块之间的多余间隙
+* 为什么？标签与标签之间的间隙产生的，它们的父容器字体越大，间隙也就越大；
+* 解决方案
+```
+一、将代码写成一行/注释填充
+二、子元素设置负margin(不好控制，需要调)
+三、父容器设置font-size:0px; 内部子元素单独设置字体大小；
+四、弹性布局可以去除多余间隙
+```
+### JS获取DOM元素的方法(8种)
+* 通过id属性 document.getElementById() 因为ID属性是惟一的
+* 通过name属性 document.getElementsByName()
+* 通过标签名 document.getElementsByTagName()
+* 通过类名 document.getElementsByClassName()
+* 获取html的方法 document.documentElement
+* 获取body的方法 document.body
+* documment.querySelector()
+* document.querySelectorAll()
