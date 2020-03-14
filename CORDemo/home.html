@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>http request test</title>
+  </head>
+  <body>
+    <h1>Home page</h1>
+    <button onclick="getReq();">同域get请求</button><br>
+    <button onclick="getCORS();">跨域get请求</button><br>
+    <button onclick="postCORS();">跨域post请求</button>
+    <script>
+      //同域get请求
+      var getReq=function(){
+        var xhr;
+        if(window.XMLHttpRequest){
+          xhr=new XMLHttpRequest();
+        }else{
+          xhr=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        //http请求未初始化 readyState=0
+        xhr.open("GET","http://127.0.0.1:3000/getdata",true);
+        //服务器连接已建立 readyState=1
+        xhr.onreadystatechange=function(){
+          console.log(xhr.readyState);
+          //服务器已经收到请求 readyState=2
+          //服务器处理请求中 readyState=3
+          //请求处理已完成，响应就绪 readyState=4
+          if(xhr.readyState===4 && xhr.status===200){
+            alert(xhr.responseText);
+          }
+        }
+        xhr.send(null);
+      }
+      //跨域get请求
+      var getCORS=function(){
+        var xhr;
+        if(window.XMLHttpRequest){
+          xhr=new XMLHttpRequest();
+        }else{
+          xhr=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.open("get","http://127.0.0.1:4000/getdata",true);
+        xhr.setRequestHeader("xhr-test-harrdy","youcan");
+        xhr.onreadystatechange=function(){
+          console.log(xhr.readyState);
+          if(xhr.readyState===4 && xhr.status===200){
+            alert(xhr.responseText);
+          }
+        }
+        xhr.send(null);
+      }
+      //跨域post请求
+      var postCORS=function(){
+        var xhr;
+        if(window.XMLHttpRequest){
+          xhr=new XMLHttpRequest();
+        }else{
+          xhr=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.open("post","http://127.0.0.1:4000/postdata",true);
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.onreadystatechange=function(){
+          console.log(xhr.readyState);
+          if(xhr.readyState===4 && xhr.status===200){
+            alert(xhr.responseText);
+          }
+        }
+        xhr.send({name:'op',age:18});
+      }
+    </script>
+    <script>
+      var jsonptest=function(data){
+        console.log(data);
+      }
+    </script>
+    <script src="http://127.0.0.1:4000/jsonpdata?callback=jsonptest"></script>
+  </body>
+</html>
