@@ -24,7 +24,7 @@
 如果Cache-Control中max-age的值设置很大，那么一直用本地的缓存肯定是不可取的。
 所以除了给文件名后面加上哈希码之外的方法，我们可以通过每次去后端询问是否文件有所改动？
 ```
-* [server_3000设置](./cache_control/index.html)
+* [server_3000设置](./cache_control/server_3000.js)
 ```js
   if(req.url==="/test.js"){
     res.writeHead(200,{
@@ -35,4 +35,33 @@
     var data=await parseFile(pathFile);
     res.end(data);
   }
+```
+* "Last-Modified": "Sat Mar 14 2020 20:10:51 GMT+0800 (China Standard Time)"
+```
+在浏览器第一次请求某一个URL时，服务器端的返回状态会是200，内容是你请求的资源，
+同时有一个Last-Modified的属性标记此文件在服务期端最后被修改的时间，格式类似这样：
+"Last-Modified": "Sat Mar 14 2020 20:10:51 GMT+0800 (China Standard Time)"
+
+客户端第二次请求此URL时，根据 HTTP 协议的规定，浏览器会向服务器传送 If-Modified-Since 报头，
+询问该时间之后文件是否有被修改过：
+"If-Modified-Since": "Sat Mar 14 2020 20:10:51 GMT+0800 (China Standard Time)"
+
+如果服务器端的资源没有变化，则自动返回 HTTP 304 （Not Changed.）状态码，内容为空，这样就节省了传输数据量。
+当服务器端代码发生改变或者重启服务器时，则重新发出资源，返回和第一次请求时类似。
+从而保证不向客户端重复发出资源，也保证当服务器有变化时，客户端能够得到最新的资源。
+```
+* "Etag": "对资源内容进行哈希计算"
+```
+服务端 "Etag": "hashData";
+客户端 "If-None-Match": "hashData";
+```
+### 数据协商
+```
+请求头中会声明希望拿到的数据格式，以及其他与数据相关的一些限制，
+服务端会根据它的请求中的声明，来做针对性的返回。
+  请求头                                  响应头
+Accept 指定我想要的数据类型     Content-Type 从Accept中选取一种数据格式，来说明实际返回的数据格式
+Accept-Encoding 代表数据以什么编码的方式来实现传输 Content-Encoding 选择哪一种数据格式进行压缩
+Accept-Language 希望获得的语言，用什么语言来展示 Content-Language 选择你喜欢的语言
+User-Agent 客户端
 ```
