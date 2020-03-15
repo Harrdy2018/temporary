@@ -66,30 +66,41 @@ Accept-Language 希望获得的语言，用什么语言来展示 Content-Languag
 User-Agent 客户端
 ```
 ### leetcode20-有效的括号
+* stack实现
 ```js
-var rev=function(pa){
-    if(pa===")") return "(";
-    if(pa==="]") return "[";
-    if(pa==="}") return "{";
-}
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
 var isValid = function(s) {
-    var str=[];
+    var arr=[];
+    var obj={")":"(","]":"[","}":"{"};
     if(s.length===0){
         return true;
     }
     for(var i=0;i<s.length;i++){
         var item=s[i];
         if(item ==="(" || item==="[" || item==="{"){
-            str.push(item);
+            arr.push(item);
         }else{
-            if(str.length===0) return false;
-            if(rev(item) !== str.pop()) return false;
+            if(arr.length===0) return false;
+            if(obj[item] !== arr.pop()) return false;
         }
     }
-    if(str.length===0){
-        return true;
-    }else{
-        return false;
+    return arr.length===0;
+};
+```
+* 正则匹配
+```js
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    var reg=/\(\)|\{\}|\[\]/;
+    while(reg.test(s)){
+        s=s.replace(reg,"");
     }
+    return !s;
 };
 ```
