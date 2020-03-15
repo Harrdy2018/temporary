@@ -87,3 +87,98 @@ ff.prototype==undefined
 ff.__proto__===Function.__proto__===Function.prototype===[native code]
 ```
 * 箭头函数不能当做 Generator 函数,不能使用 yield 关键字
+### overflow
+* visible	默认值。内容不会被修剪，会呈现在元素框之外。
+* hidden	内容会被修剪，并且其余内容是不可见的。
+* scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+* auto	如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+* inherit	规定应该从父元素继承 overflow 属性的值。
+### float
+* 包裹性
+```
+包裹指的是一个浮动元素，如果子元素宽度足够小，则浮动元素的宽度就是该子元素的宽度
+p 标签将紧紧的包住 span 标签
+.float{
+  float: left;
+  background-color: lightsalmon;
+}
+<p class="float">
+  <span>ppppppppppppp</span>
+</p>
+
+自适应指的是如果浮动元素的父元素有设置宽度，则浮动元素的宽度继承父元素的宽度
+.father{
+  width: 100px;
+}
+.child{
+  float: left;
+  color: red;
+  background-color: mediumaquamarine;
+}
+<div class="father">
+  <p class="child">you are a good teacher !!!</p>
+</div>
+```
+* BFC
+* 破坏文档流(高度坍塌)；但是不完全脱离文档流(行框盒子和浮动元素的不可重叠性)；
+```
+这是float最本质的特性，因此float设计的初衷就是破坏文档流
+<style>
+  .float{
+    float: left;
+    width: 200px;
+  }
+</style>
+  <body>
+    <div style="width: 400px;background-color: palegreen;">
+      <img src="./pby.jpg" title="this is pby" class="float">
+      <p>this is pby.this is pby.this is pby.this is pby.</p>
+    </div>
+  </body>
+```
+* 没有margin合并,设置了float的元素，由于形成了BFC，因此也就没有了margin合并
+### 经典两栏布局
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>经典两栏布局</title>
+    <style>
+      html{
+        height: 100%;
+      }
+      body{
+        height: 100%;
+        margin: 0px;
+      }
+      .father{
+        overflow: hidden;
+        background-color: palegreen;
+      }
+     .float{
+       float: left;
+       width: 200px;
+       margin-right: 20px;
+     }
+    </style>
+  </head>
+  <body>
+    <div class="father">
+      <img src="./pby.jpg" title="this is pby" class="float">
+      <p class="content">
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+        this is pby.this is pby.this is pby.this is pby.this is pby.this is pby.
+      </p>
+    </div>
+  </body>
+</html>
+<script>
+</script>
+```
