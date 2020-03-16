@@ -7,7 +7,7 @@
 * vue.runtime.esm.js 生产运行时，esm标准。
 * vue.runtime.common.js 生产运行时，commonJS标准。
 ### webpack源码阅读
-#### 静态加载文件
+#### [webpack对ESmodule实现](./webpack_source/realize_ESmodule.js)
 * 情形
 ```
 入口文件 index.js
@@ -140,4 +140,16 @@ console.log(_my_module_js__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+```
+#### [webpack对commonjs的实现](./webpack_source/realize_commonjs.js)
+* 情形
+```
+入口文件 index.js
+const test=require("./my-module.js");
+console.log(test.bar());
+
+从属文件 my-module.js
+module.exports.bar=function () {
+  return 123;
+}
 ```
