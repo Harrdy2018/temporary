@@ -182,7 +182,7 @@ p::before{content: "you are a girl"} 在元素的内容前面插入新内容
 p::after{content: "you are a girl"} 伪元素可以在元素的内容之后插入新内容
 ```
 ### Object.creat(obj) es6创建对象的另外一种方式
-* B=Object.creat(A) B.__proto===A
+* B=Object.creat(A) B.__proto__===A
 * 实现类式继承
 ```js
 function Shape(){

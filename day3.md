@@ -29,7 +29,7 @@
 点击p标签 body->html->document->window事件依次触发
 ```
 ### 给元素添加事件的三种方法
-```
+```js
 第一种：直接嵌入DOM
 <p onclick='console.log("hello world!!!");'>pppp</p>
 第二种：将函数嵌入DOM
@@ -40,12 +40,19 @@
     console.log(params);
   };
 </script>
-第三种：给元素添加监听事件
+第三种：给元素添加监听器
 <p>pppp</p>
 <script>
   document.getElementsByTagName("p")[0].addEventListener("click",()=>{
     console.log("I am clicking p tag;");
   },false);
+</script>
+第四种: 给元素添加事件
+<p>pppp</p>
+<script>
+  document.getElementsByTagName("p")[0].onclick=function(){
+    console.log("I am clicking p tag;");
+  };
 </script>
 ```
 ### 计算两个div之间的距离
