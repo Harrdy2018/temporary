@@ -93,23 +93,35 @@ foo = {};
 //不可变的只是这个地址，即不能把foo指向另一个地址，但对象本身是可变的，所以依然可以为其添加新属性。
 ```
 ### 深拷贝、浅拷贝
-* 黑科技实现深拷贝
+* 问题: 如果给一个对象赋值给一个变量，那么两者的值会是同一个引用(指针)，其中一方改变，另一方也会相应改变。
 ```js
-var obj={
-  name: "oppo",
-  arr: [1,2,3]
+let obj={
+  name: 'op',
+  age:12
 }
-var targetObj=JSON.parse(JSON.stringify(obj));
+let other=obj;
+other.age=18;
+console.log(obj.age);
 ```
-* Object.create() 实现
+#### 浅拷贝
+* Object.assign(target,source1,source2,...) 拷贝原对象的所有属性到目标对象
 ```js
-var obj={
-  name: "oppo",
-  arr: [1,2,3]
+let obj={
+  name: 'op',
+  age:12
 }
-var targetObj=Object.create(obj);
+let other={};
+Object.assign(other,obj);
 ```
-* 浅拷贝
+* 展开运算符
+```js
+let obj={
+  name: 'op',
+  age:12
+}
+let other={...obj};
+```
+* 遍历
 ```js
 //浅拷贝第二层拷贝的是引用
 var obj={
@@ -126,4 +138,21 @@ function shallowCopy(source,target={}){
   return target;
 }
 var targetObj=shallowCopy(obj);
+```
+#### 深拷贝
+* 黑科技
+```js
+var obj={
+  name: "oppo",
+  arr: [1,2,3]
+}
+var targetObj=JSON.parse(JSON.stringify(obj));
+```
+* Object.create() 实现
+```js
+var obj={
+  name: "oppo",
+  arr: [1,2,3]
+}
+var targetObj=Object.create(obj);
 ```
