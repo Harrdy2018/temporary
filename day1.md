@@ -37,15 +37,16 @@ window.navigator.userAgent
 ```
 ### display & visibility & opacity
 ```
+相同点：不会影响DOM结构
 块级元素：总是独占一行，表现为另起一行开始，而且其后的元素也必须另起一行显示
-display 元素如何的显示
-  none 渲染之后，所在的元素块没有了，也就不影响布局
+display 元素如何的显示,(占空间：block、inline、block-inline;不占空间:none)
+  none 不占空间
   inline 块级元素--->内联元素
   block  内联元素--->块级元素
 visibility 元素是显示还是隐藏
-  hidden 渲染之后，所在的元素块只是隐藏了，影响布局
+  hidden 只是隐藏了，占空间
 opacity 元素透明度设置
-  0  同visibility=hidden
+  0  表面上看不见而已，占空间
 ```
 ### 消除无序列表和有序列表的样式
 ```html
@@ -181,9 +182,14 @@ p::first-letter{color: red} 向文本的首字母设置特殊样式
 p::before{content: "you are a girl"} 在元素的内容前面插入新内容
 p::after{content: "you are a girl"} 伪元素可以在元素的内容之后插入新内容
 ```
-### Object.creat(obj) es6创建对象的另外一种方式
-* B=Object.creat(A) B.__proto__===A
-* 实现类式继承
+### 实现类式继承
+```
+Object.creat(obj) es6创建对象的另外一种方式
+B=Object.creat(A) B.__proto__===A
+一、子构造函数的this绑定到父构造函数里去
+二、用父构造函数的原型创建对象赋值给子函数构造对象的原型
+三、设置子构造函数原型的constructor
+```
 ```js
 function Shape(){
   this.x=0;
@@ -214,11 +220,11 @@ Person.prototype.sayName=function(){
   console.log(this.name);
 }
 function my_new(Fun,...rest){
-  // 1.以构造器的prototype属性为原型，创建新对象
+  // 1.以构造器的prototype属性为原型，创建新对象实例
   var that=Object.create(Fun.prototype);
-  // 2.将this和调用参数传给构造器执行
+  // 2.将this和调用参数传给构造器执行,完善新对象实例
   Person.apply(that,rest);
-  // 3.返回第一步的对象
+  // 3.返回第一步的新对象实例
   return that;
 }
 var pp=my_new(Person,"lukang",18);
