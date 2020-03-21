@@ -66,7 +66,7 @@
             alert(xhr.responseText);
           }
         }
-        xhr.send({name:'op',age:18});
+        xhr.send(JSON.stringify({name:'op',age:18}));
       }
     </script>
     <script>
