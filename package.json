@@ -1,0 +1,27 @@
+{
+  "name": "temporary",
+  "version": "1.0.0",
+  "description": "temporary notebook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harrdy2018/temporary.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Harrdy2018/temporary/issues"
+  },
+  "homepage": "https://github.com/Harrdy2018/temporary#readme",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^8.0.8",
+    "vue": "^2.6.11"
+  }
+}

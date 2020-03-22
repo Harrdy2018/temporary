@@ -14,14 +14,14 @@ const server=http.createServer(async (req,res)=>{
     //会话期Cookie不需要指定过期时间（Expires）或者有效期（Max-Age）
     //需要注意的是，有些浏览器提供了会话恢复功能，这种情况下即使关闭了浏览器，会话期Cookie也会被保留下来，
     //就好像浏览器从来没有关闭一样。
-    if(req.url==="/index"){
+    if(req.url==="/writefirst"){
       res.writeHead(200,{
         "Content-Type": "text/html",
         "Set-Cookie": ["name=harrdy","age=18"]
       })
       res.write("cookie is ok");
       res.end("");
-    }else if(req.url==="/home"){
+    }else if(req.url==="/writesecond"){
       //持久性 cookie
       //持久性Cookie可以指定一个特定的过期时间（Expires）或有效期（Max-Age）
       //设置 Path=/docs,可以匹配当前路径和它的所有子路径
@@ -48,6 +48,15 @@ const server=http.createServer(async (req,res)=>{
       console.log(url.parse(req.url,true).query);
       console.groupEnd();
       res.write("querystring: "+url.parse(req.url).query);
+      res.end("");
+    }else if(req.url==="/read"){
+      //read cookie
+      res.writeHead(200,{"Content-Type": "text/html"});
+      if(req.headers.cookie){
+        res.write(req.headers.cookie);
+      }else{
+        res.write("cookie not exist");
+      }
       res.end("");
     }else if(req.url==="/delete"){
       //delete cookie

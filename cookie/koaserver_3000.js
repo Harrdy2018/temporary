@@ -2,7 +2,7 @@ const Koa=require("koa");
 const app=new Koa();
 
 app.use(async ctx=>{
-  if(ctx.url==="/index"){
+  if(ctx.url==="/write"){
     ctx.cookies.set(
       'name',
       "Harrdy",
@@ -26,8 +26,15 @@ app.use(async ctx=>{
   }else if(ctx.url === "/delete"){
     ctx.cookies.set('name', '', { maxAge: 0});
     ctx.body="server:this cookie has delete";
+  }else if(ctx.url === "/read"){
+    //ctx.body=ctx.cookies.get("name");
+    if(ctx.req.headers.cookie){
+      ctx.body=ctx.req.headers.cookie;
+    }else{
+      ctx.body="<h3>cookie is not exist</h3>";
+    }
   }else{
-    ctx.body=ctx.cookies.get("name");
+    ctx.body="<h3>other page</h3>"
   }
 })
 
