@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>index page</title>
+    <!--阻止进入此页面时前台向服务器发送/favicon.ico 请求-->
+    <link rel="icon" href="data:;base64,">
+  </head>
+  <body>
+    <h1>this is index page</h1>
+    <form action="http://127.0.0.1:4000/testpost" method="POST">
+      <p>account: <input name="account" type="text"></p>
+      <p>password: <input name="password" type="text"></p>
+      <p>web: <input name="web" type="text"></p>
+      <p><button type="submit">submit</button></p>
+    </form>
+  </body>
+</html>
