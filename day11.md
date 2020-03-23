@@ -111,3 +111,168 @@
   htmlNode.style.fontSize=width+'px';
 </script>
 ```
+### 闭包
+```html
+<script type="application/javascript">
+  //闭包
+  //形成条件：函数嵌套；子函数引用父函数的局部变量
+  //闭包优点： 延长父函数的局部变量的生命周期
+  //闭包缺点： 内存泄漏
+  /*
+  function parent(){
+    let count=2;
+    function child(){
+      console.log(count);
+    }
+    child();
+  }
+  parent();
+  */
+ //一道面试题
+ /*
+  function parent(){
+    let count=2;
+    return function(){
+      count++;
+      console.log(count);
+    }
+  }
+  let child=parent();
+  child();//3
+  child();//4
+*/
+</script>
+```
+### vue组件通信方式
+* 父组件->子组件
+* 子组件->父组件
+* 隔代组件间通信
+* 兄弟组件通信
+#### 实现通信方式
+* props
+```
+子组件的props属性接受父组件绑定的属性值
+```
+* vue自定义事件
+```
+子组件模板定义一个按钮事件 <button v-on:click="sendData()">send</button>
+sendData: function(){this.$emit("other",this.message);}
+父组件模板里面 <child v-on:other="showMessage($event)"></child>
+showMessage: function(x){console.log(x);}
+```
+* 消息订阅与发布
+```
+可以实现任意间组件通信
+```
+* vuex
+```
+管理组件间的状态，实现任意的
+```
+* slot slot可以在自定义组件时传递给组件内容，组件接收内容并输出
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <style>
+      html{
+        height: 100%;
+      }
+      body{
+        height: 100%;
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app-1">
+      <parent>
+        <span slot="username">{{info.username}}</span>
+        <span slot="ps">{{info.ps}}</span>
+      </parent>
+    </div>
+  </body>
+</html>
+<script src="./vue.js"></script>
+<script src="./jquery-3.4.1.js"></script>
+<script type="application/javascript">
+let parent={
+  template: `
+  <div>
+    <p><slot name="username"></slot></p>
+    <p <slot name="ps"></slot></p>
+  </div>
+  `
+}
+  const app=new Vue({
+    el: "#app-1",
+    data: {
+      info: {
+        username:"lukang",
+        age:18
+      }
+    },
+    components:{
+      parent: parent
+    }
+  })
+</script>
+```
+### 函数防抖和节流
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>debounce and throttle</title>
+    <style>
+      html{
+        height: 100%;
+      }
+      body{
+        height: 200%;
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <button>按钮</button>
+  </body>
+</html>
+<script type="application/javascript">
+  //函数防抖 一个需要频繁触发的函数，在规定时间内，只让最后一次生效，前面不生效
+  //点击按钮，点一下等待一段时间触发一次，一直点只触发最后一次
+  function debounce(fn,delay){
+    var timer=null;
+    return function(){
+      clearTimeout(timer);
+      timer=setTimeout(function (){
+        fn.apply(this);
+      }, delay);
+    }
+  }
+  document.querySelector("button").onclick=debounce(function(){
+    console.log("click button"+Date.now());
+  },1000)
+
+  //函数节流: 一个函数被触发以后，只有大于设定的执行周期后才会执行第二次
+  function throttle(fn,delay){
+    //记录上一次函数执行的时间
+    let lastTime=0;
+    return function(){
+      //记录当前函数触发的时间
+      let nowTime=Date.now();
+      if(nowTime-lastTime>delay){
+        //修复 this指向
+        fn.call(this);
+        lastTime=nowTime;
+      }
+    }
+  }
+
+  document.onscroll=throttle(function(){
+    console.log("scroll"+Date.now());
+  },200);
+</script>
+```
