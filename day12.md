@@ -80,3 +80,28 @@ application/pdf
 对于text文件类型若没有特定的subtype，就使用 text/plain。
 类似的，二进制文件没有特定或已知的 subtype，即使用 application/octet-stream。
 ```
+#### 表单提交两个常用的编码格式
+* 表单提交 enctype="application/x-www-form-urlencoded"
+```
+application/x-www-form-urlencoded 是默认表单 POST 提交的编码格式
+相当于设置请求头 Content-Type: application/x-www-form-urlencoded,但是只在表单提交中有用
+因为里面有个 "form" 这个单词，你可以这么理解。
+特点：源码提交时这样的 account=lukang+&age=18%26
+将键值对的参数用&连接起来，如果有空格，将空格转换为+加号；有特殊符号，将特殊符号转换为ASCII HEX值
+```
+* 表单提交 enctype="multipart/form-data"
+```
+相当于设置请求头
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryp5fUSbhnR6o3WiZV
+但是只在表单提交中有用,因为里面有个 "form" 这个单词，你可以这么理解。
+特点：源码提交时这样的:
+------WebKitFormBoundaryp5fUSbhnR6o3WiZV
+Content-Disposition: form-data; name="account"
+
+lukang
+------WebKitFormBoundaryp5fUSbhnR6o3WiZV
+Content-Disposition: form-data; name="age"
+
+18
+------WebKitFormBoundaryp5fUSbhnR6o3WiZV--
+```
