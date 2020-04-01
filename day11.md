@@ -276,3 +276,33 @@ let parent={
   },200);
 </script>
 ```
+### permute
+* 给定一个没有重复数字的序列，返回其所有可能的全排列
+```js
+//无空间复杂度的异或交换算法，只适合对于两个不等的数值
+let swap=function(arr,i,j){
+  if(i!==j){
+    arr[i]=arr[i]^arr[j];
+    arr[j]=arr[i]^arr[j];
+    arr[i]=arr[i]^arr[j];
+  }
+};
+//全排列问题->回溯算法->典型的DFS(Depth-First-Search)
+var permute = function(nums) {
+  let output=[];
+  let n=nums.length;
+  function backtrack(first=0){
+    if(first===n-1){
+      output.push(JSON.parse(JSON.stringify(nums)));
+    }else{
+      for(let i=first;i<n;i++){
+        swap(nums,first,i);
+        backtrack(first+1);
+        swap(nums,first,i);
+      }
+    }
+  }
+  backtrack();
+  return output;
+};
+```

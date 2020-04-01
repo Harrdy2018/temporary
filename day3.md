@@ -124,3 +124,10 @@ var obj=[
 ]
 console.log(obj.find(it=>it.name==="lukang"));
 ```
+* ES6为Array增加了fill()函数，默认内容初始化数组。
+```
+arr.fill(value, start, end)
+value：填充值
+start：填充起始位置，可以省略
+end：填充结束位置，可以省略，实际结束位置是end-1
+```
