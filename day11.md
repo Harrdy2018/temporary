@@ -306,3 +306,13 @@ var permute = function(nums) {
   return output;
 };
 ```
+### 字符串的不可变性
+```js
+//说明字符串的值是不可变的
+var str = "hello";
+str[1] = "E";
+console.log(str);//hello
+//str指向了另一个字符串的地址，字符串本身没有变
+str = "test";
+console.log(str);//test
+```
