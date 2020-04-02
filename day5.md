@@ -182,3 +182,130 @@ p 标签将紧紧的包住 span 标签
 <script>
 </script>
 ```
+### 经典三栏布局
+* overflow: hidden 在布局时有神奇的治理布局塌方的功效
+* 计算BFC的高度时，浮动元素也参与计算
+* 两边宽度固定，中间自适应
+* float 解决 div顺序 left->right->main
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>经典三栏布局</title>
+    <style>
+      html{
+        height: 100%;
+      }
+      body{
+        height: 100%;
+        margin: 0px;
+      }
+      .left{
+        float: left;
+        width: 300px;
+        background-color: brown;
+      }
+      .right{
+        float: right;
+        width: 300px;
+        background-color: brown;
+      }
+      .main{
+        background-color: cornflowerblue;
+      }
+      .container{
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        left left left left left left left left left
+        left left left left left left left left left
+        left left left left left left left left left
+      </div>
+      <div class="right">
+        right right right right right right right right right
+        right right right right right right right right right
+      </div>
+      <div class="main">
+        main main main main main main main main main
+        main main main main main main main main main
+        main main main main main main main main main
+      </div>
+    </div>
+  </body>
+</html>
+```
+* 容器相对定位，里面div全部绝对定位,div顺序 left->main->right
+* 绝对定位完全脱离了文档流，引起的坍塌无法撑开
+* obj.offsetHeight=height+padding+border
+* obj.clientHeight=height+padding
+* obj.style.height 不可读，只可以设置，而且 格式为 100px
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>经典三栏布局</title>
+    <style>
+      html{
+        height: 100%;
+      }
+      body{
+        height: 100%;
+        margin: 0px;
+      }
+      .container{
+        position: relative;
+      }
+      .left{
+        width: 300px;
+        background-color: brown;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      .main{
+        background-color: cornflowerblue;
+        position: absolute;
+        top: 0px;
+        left: 300px;
+        right: 300px;
+      }
+      .right{
+        width: 300px;
+        background-color: brown;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        left left left left left left left left left
+        left left left left left left left left left
+        left left left left left left left left left
+      </div>
+      <div class="main">
+        main main main main main main main main main
+        main main main main main main main main main
+        main main main main main main main main main
+      </div>
+      <div class="right">
+        right right right right right right right right right
+        right right right right right right right right right
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+  let oDiv=document.querySelector(".left");
+  document.querySelector(".container").style.height=oDiv.offsetHeight+'px';
+</script>
+```
+* flex 布局(简单)
