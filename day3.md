@@ -131,3 +131,22 @@ value：填充值
 start：填充起始位置，可以省略
 end：填充结束位置，可以省略，实际结束位置是end-1
 ```
+### for in/for of 遍历
+* for in 为对象而生
+```js
+//遍历数组的时候，有缺陷；
+var arr=[4,5,9,7];
+  arr.name="myarr";
+  for(let i in arr){
+    console.log(i,typeof i);
+  }
+//i是索引，而且是 string
+//使用for in会遍历数组所有的可枚举属性，包括原型。例如上栗的原型方法method和name属性
+```
+* for of适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合,但是不能遍历对象
+* for of和for in能用break中断，return也可以
+```
+** 重点
+ES5的话也可以使用forEach，ES5具有遍历数组功能的还有map、filter、some、every、reduce、reduceRight等，
+使用break不能中断循环，使用return也不能返回到外层函数。
+```
