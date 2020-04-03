@@ -1,5 +1,9 @@
 ## day12-notebook
 ### 项目经验
+* 使用Element-UI组件的时候，运用 el-row/el-col布局的时候，高度无法达到100%的问题
+```
+在钩子函数 mounted 上面使用 js设置100%高度
+```
 * 诡异的样式
 ```html
 <li class="a" style="list-style: none;"><img src="./pby.jpg" width="100px" height="80px;"></li>
