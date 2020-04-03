@@ -316,3 +316,18 @@ console.log(str);//hello
 str = "test";
 console.log(str);//test
 ```
+### 5个常用的 css单位
+* 1个px就是一个像素点的意思，在段落设置的时候，font-size和line-height要同时兼顾
+* em 是一个相对单位，基于目前容器的设定
+```
+和父级元素的字体大小有关，即父级元素的字体大小的x倍的意思，如果父级元素没有设置，一直找到html顶级元素为止
+此时设置 段落的 font-size=1em line-height=1.5em 这样他们可以按照比例缩放
+```
+* rem，是html字体大小的倍数，与父级元素无关
+* vh/vw，viewport height/viewport width 和浏览器当前尺寸有关，即浏览器当前长宽的百分比
+* vmin/vmax 百分比，vmin代表荧幕较短的一边，vmax代表荧幕较长的一边
+```
+img width: 100vmin 表示将屏幕较短的一边作为图片的宽度，这样无论你怎么旋转频谱，图片
+                   都能完整显示
+img width: 100vmax 表示将屏幕较长的一边作为图片的宽度
+```

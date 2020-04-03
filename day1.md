@@ -148,6 +148,12 @@ parent display:flex;
        justify-content: center;
        align-items: center;
 ```
+#### grid 网格布局垂直居中
+```
+parent display:grid;
+       justify-content: center;
+       align-items: center;
+```
 ### CSS选择器
 * 内联>ID>class>元素/标签选择器
 ```
